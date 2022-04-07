@@ -114,64 +114,183 @@ public:
         cout << "Minivan" << endl;
     }
 };
-
-
-/*3 Task*/
+    
+    /*3 Task*/
 class Fraction
 {
 public:
-    int numerator;
-    int denominator;
+    int SomeKindOfCounter;
 
-    Fraction(int _numerator, int _denominator) {
-        this->numerator = _numerator;
-        this->denominator = _denominator;
+    Fraction(int _numerator) : SomeKindOfCounter(_numerator) {}
+
+    int GetCounter() const { return SomeKindOfCounter; }
+
+   
+    //Method of the class
+    Fraction operator+(const Fraction &obj2)
+    {
+        return Fraction(this->SomeKindOfCounter + obj2.GetCounter());
     }
 
-    friend Fraction operator+ (const Fraction n, const Fraction d) {
 
-    }
+    //friend
+    friend Fraction operator - (const Fraction& d1, const Fraction& d2);
 
+    friend Fraction& operator++(Fraction& d);
+    friend Fraction& operator--(Fraction& d);
+    friend Fraction& operator+=(Fraction& left, const Fraction& right);
+    friend Fraction& operator-=(Fraction& left, const Fraction& right);
+    friend bool operator==(const Fraction& left, const Fraction& right);
+ 
+
+    
 
 };
-
-
-
-
-
-int main()
+    //Classic Function
+Fraction operator*(const Fraction& d1, const Fraction& d2)
 {
-    
-    
-    Circle C1(3);
-    Rectagle R1(4, 4);
-    Square S1(5);
-    Rhombus Rh1(8, 8);
-    
-    
-   
-    C1.GetInfo();
-    R1.GetInfo();
-    S1.GetInfo();
-    Rh1.GetInfo();
-
-    Car Car1("Ford", "Mustang");
-    Car1.CarInfo();
-    cout << "================"<<endl;
-    PassengerCar PCar1("Kia", "Rio");
-    PCar1.CarInfo();
-    cout << "================" << endl;
-    Bus B1("Icarus", "Long");
-    B1.CarInfo();
-    cout << "================" << endl;
-    Minivan M1("Mercedes","A180");
-    //M1.CarInfo();
-
-
-    unsigned int  numerator{3}, denominator{7};
-    if (denominator!=0)
-    {
-        Fraction obj1(numerator, denominator);
-    }
+    return Fraction(d1.GetCounter() * d2.GetCounter());
 }
+//  /
+Fraction operator/(const Fraction& d1, const Fraction& d2)
+{
+    return Fraction(d1.GetCounter() / d2.GetCounter());
+}
+//friend function
+//  -
+ Fraction operator - (const Fraction& d1, const Fraction& d2)
+{
+     return Fraction(d1.SomeKindOfCounter - d2.SomeKindOfCounter);
+}
+ // ++
+ Fraction& operator++(Fraction& d1)
+ {
+     d1.SomeKindOfCounter++;
+     return d1;
+ }
+ // --
+ Fraction& operator--(Fraction& d)
+ {
+     d.SomeKindOfCounter--;
+     return d;
+ }
+ // +=
+ Fraction& operator+=(Fraction& left, const Fraction& right)
+ {
+     left.SomeKindOfCounter += right.SomeKindOfCounter;
+     return left;
+ }
+ // -=
+ Fraction& operator-=(Fraction& left, const Fraction& right)
+ {
+      left.SomeKindOfCounter -= right.SomeKindOfCounter;
+      return left;
+ }
+ // ==
+ bool operator==(const Fraction& left, const Fraction& right)
+ {
+     return left.SomeKindOfCounter == right.SomeKindOfCounter;
+ }
+    
+    /*4 Task*/
+
+ class Card
+ {
+ 
+ public:
+     enum rank{Ace=1,Two,Tree,Four,Six,Seven,Eight,Nine,Ten,Jack,Queen,King};
+     enum suit{Hearts,Diamonds,Baptize,Peaks};
+     bool FrontSide;
+ 
+     rank Rank;
+     suit Suit;
+     
+
+     Card(rank r, suit s, bool FS):Rank(r),Suit(s),FrontSide(FS) { }
+     
+     void Flip();
+     int GetValue() const;
+ };
+ int Card::GetValue()const
+ {
+     int value = 0;
+     value = Rank;
+     return value;
+ }
+ void Card::Flip() {
+     FrontSide = !FrontSide;
+ }
+
+ 
+
+
+ int main()
+ {
+
+
+     Circle C1(3);
+     Rectagle R1(4, 4);
+     Square S1(5);
+     Rhombus Rh1(8, 8);
+
+
+
+     C1.GetInfo();
+     R1.GetInfo();
+     S1.GetInfo();
+     Rh1.GetInfo();
+
+     Car Car1("Ford", "Mustang");
+     Car1.CarInfo();
+     cout << "================" << endl;
+     PassengerCar PCar1("Kia", "Rio");
+     PCar1.CarInfo();
+     cout << "================" << endl;
+     Bus B1("Icarus", "Long");
+     B1.CarInfo();
+     cout << "================" << endl;
+     Minivan M1("Mercedes", "A180");
+     //M1.CarInfo();
+     cout << endl;
+
+
+     int numerator = 5;
+     int denominator = 4;
+
+     Fraction Obj1(numerator);
+     Fraction Obj2(denominator);
+
+     Fraction Summ1_1 = Obj1 + Obj2;
+     cout << " +  :" << Summ1_1.GetCounter() << endl;
+
+     Fraction Summ1_2 = Obj1 * Obj2;
+     cout << " *  :" << Summ1_2.GetCounter() << endl;
+
+     Fraction Summ1_3 = operator/(Obj1, Obj2);
+     cout << " /  :" << Summ1_3.GetCounter() << endl;
+
+     Fraction Summ1_4 = operator-(Obj1, Obj2);
+     cout << " -  :" << Summ1_4.GetCounter() << endl;
+
+     Fraction Summ2_1 = operator++(Obj1);
+     cout << " ++ :" << Summ2_1.GetCounter() << endl;
+     
+     Fraction Summ2_2 = operator--(Obj2);
+     cout << " -- :" << Summ2_2.GetCounter() << endl;
+
+     Fraction Summ3_1 = operator+=(Obj1, Obj2);
+     cout << " += :" << Summ3_1.GetCounter() << endl;
+
+     Fraction Summ3_2 = operator-=(Obj1, Obj2);
+     cout << " -= :" << Summ3_2.GetCounter() << endl;
+
+     cout << boolalpha<<(Obj1==Obj2)<<endl<<endl;
+
+     
+  
+
+    
+     
+ }
+
 
