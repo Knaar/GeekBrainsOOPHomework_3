@@ -92,7 +92,7 @@ public:
     
 };
 
-class PassengerCar : public Car
+class PassengerCar :virtual public Car
 {
 public:
     PassengerCar(string _Company, string _Model):Car(_Company,_Model){
@@ -100,7 +100,7 @@ public:
     }
 };
 
-class Bus : public Car
+class Bus :virtual public Car
 {
 public:
     Bus(string _Company, string _Model) :Car(_Company, _Model) {
@@ -110,7 +110,7 @@ public:
 class Minivan :Bus, PassengerCar
 {
 public:
-    Minivan(string _Company, string _Model) :PassengerCar(_Company, _Model),Bus(_Company, _Model) {
+    Minivan(string _Company, string _Model) :PassengerCar(_Company, _Model),Bus(_Company, _Model), Car(_Company, _Model) {
         cout << "Minivan" << endl;
     }
 };
@@ -131,7 +131,7 @@ public:
     {
         return Fraction(this->SomeKindOfCounter + obj2.GetCounter());
     }
-
+    /*Пробовал объявить метод в классе Car, и вызвать его для объекта Minivan. У меня ничего не вышло.Как в таких ситуациях быть?*/
 
     //friend
     friend Fraction operator - (const Fraction& d1, const Fraction& d2);
@@ -193,29 +193,37 @@ Fraction operator/(const Fraction& d1, const Fraction& d2)
  }
     
     /*4 Task*/
-
+ enum ERank {
+     Ace = 1,
+     Two = 2,
+     Tree = 3,
+     Four = 4,
+     Six = 6,
+     Seven = 7,
+     Eigh = 8,
+     Nine = 9,
+     Ten = 10,
+     Jack = 10,
+     Queen = 10,
+     King = 10
+ };
+ enum ESuit { Hearts, Diamonds, Clubs, Spades };
  class Card
  {
  
  public:
-     enum rank{Ace=1,Two,Tree,Four,Six,Seven,Eight,Nine,Ten,Jack,Queen,King};
-     enum suit{Hearts,Diamonds,Baptize,Peaks};
+     ERank Rank;
+     ESuit Suit;
      bool FrontSide;
- 
-     rank Rank;
-     suit Suit;
-     
 
-     Card(rank r, suit s, bool FS):Rank(r),Suit(s),FrontSide(FS) { }
+     Card(ERank r, ESuit s) :Rank(r), Suit(s) { FrontSide = true; }
      
      void Flip();
      int GetValue() const;
  };
  int Card::GetValue()const
  {
-     int value = 0;
-     value = Rank;
-     return value;
+     return Rank;
  }
  void Card::Flip() {
      FrontSide = !FrontSide;
@@ -288,7 +296,8 @@ Fraction operator/(const Fraction& d1, const Fraction& d2)
 
      
   
-
+     Card f(Ace,Clubs);
+     cout << f.GetValue();
     
      
  }
